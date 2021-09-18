@@ -1,0 +1,31 @@
+@import "./vars/fonts.css";
+
+*,
+*::before,
+*::after {
+    font-family: inherit;
+    font-weight: inherit;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-weight: normal;
+    background: $red;
+}
+
+li {
+    list-style: none;
+}
+
+button,
+input {
+    border: none;
+    display: flex;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
