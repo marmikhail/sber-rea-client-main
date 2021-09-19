@@ -1,12 +1,15 @@
 import './reset.css';
 
-import React from 'react';
 import {render} from 'react-dom';
+import {BrowserRouter} from 'react-router-dom';
 
-const App = () => {
-    return <div>ya appka</div>;
-};
+import {App} from './App';
 
 const appRoot = document.getElementById('root');
 
-render(<App />, appRoot);
+render(
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>,
+    appRoot,
+);

@@ -1,11 +1,9 @@
-import {merge} from 'webpack-merge';
-import path from 'path';
-import type {Configuration} from 'webpack';
-import type {Configuration as DevServerConfig} from 'webpack-dev-server';
+const {merge} = require('webpack-merge');
+const path = require('path');
 
-import {baseConfig} from './webpack.config';
+const {baseConfig} = require('./webpack.config');
 
-const devRules: Configuration & {devServer: DevServerConfig} = {
+const devRules = {
     mode: 'development',
     devtool: 'source-map',
     devServer: {
@@ -35,4 +33,4 @@ const devRules: Configuration & {devServer: DevServerConfig} = {
     },
 };
 
-export default merge(baseConfig, devRules);
+module.exports = merge(baseConfig, devRules);

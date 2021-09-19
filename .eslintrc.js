@@ -31,12 +31,16 @@ module.exports = {
         'semi': "off",
         'no-trailing-spaces': "off",
 
+        // new react
+        'react/react-in-jsx-scope': "off",
+        'react/prop-types': "off",
+
         // code styling
-        'prefer-const': ['error'],
-        'camelcase': ['error'],
-        'key-spacing': ['error'],
-        'no-console': ['error'],
-        'no-magic-numbers': ['error'],
+        'prefer-const': 'error',
+        'camelcase': 'error',
+        'key-spacing': 'error',
+        'no-console': 'error',
+        'object-curly-spacing': ['error', 'never'],
 
         // too strict rules
         '@typescript-eslint/explicit-function-return-type': ['off'],

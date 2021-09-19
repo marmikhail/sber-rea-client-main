@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "target": "es5",
-    "module": "commonjs",
+    "allowJs": true,
+    "target": "es6",
+    "module": "ESNext",
     "jsx": "react-jsx",
     "importHelpers": true,
     "downlevelIteration": true,
@@ -16,7 +17,9 @@
     },
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
   },
   "include": ["./src"],
   "exclude": ["node_modules", "dist"]

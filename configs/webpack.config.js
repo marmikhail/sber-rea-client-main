@@ -1,13 +1,12 @@
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import type {Configuration} from 'webpack';
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-export const SRC = path.resolve(__dirname, './../src');
-export const DIST = path.resolve(__dirname, './../dist');
+const SRC = path.resolve(__dirname, './../src');
+const DIST = path.resolve(__dirname, './../dist');
 
-export const baseConfig: Configuration = {
+const baseConfig = {
     resolve: {
-        extensions: ['.ts', '.tsx', '.html', '.js'],
+        extensions: ['.ts', '.js', '.html', '.tsx'],
         alias: {
             '@': SRC,
             '~vars': `${SRC}/common`,
@@ -24,10 +23,14 @@ export const baseConfig: Configuration = {
         rules: [
             {
                 test: /\.[tj]sx?$/,
-                loader: 'ts-loader',
-                options: {
-                    transpileOnly: true,
-                },
+                use: [
+                    {
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true,
+                        },
+                    },
+                ],
             },
             {
                 test: /\.html?$/,
@@ -40,4 +43,10 @@ export const baseConfig: Configuration = {
             template: path.join(SRC, 'index.html'),
         }),
     ],
+};
+
+module.exports = {
+    SRC,
+    DIST,
+    baseConfig,
 };
