@@ -17,7 +17,12 @@ function validateChild(el: ReturnType<typeof Children.toArray>[number]): asserts
 
 const PATH_DELIMITER = '/';
 
-const createRegexpFromPathBase = (currentPath: string): [pattern: RegExp, params: string[]] => {
+type CreateRegexpParams = {
+    currentPath: string;
+    exact: boolean;
+};
+
+const createRegexpFromPathBase = ({currentPath, exact}: CreateRegexpParams): [pattern: RegExp, params: string[]] => {
     const pathParts = currentPath.split(PATH_DELIMITER);
 
     const params: string[] = [];
@@ -33,7 +38,9 @@ const createRegexpFromPathBase = (currentPath: string): [pattern: RegExp, params
         })
         .join(PATH_DELIMITER);
 
-    return [new RegExp(regexpString), params];
+    const boundedRegexpString = exact ? `^${regexpString}$` : regexpString;
+
+    return [new RegExp(boundedRegexpString), params];
 };
 const createRegexpFormPath = memo(createRegexpFromPathBase);
 
@@ -43,8 +50,8 @@ const createRegexpFormPath = memo(createRegexpFromPathBase);
  * @param pathPattern pattern defined by route
  * @returns null if route doesn't match and else record of matching params
  */
-const matchPath = (currentPath: string, pathPattern: string): Record<string, string> | null => {
-    const [patternRegexp, paramsNames] = createRegexpFormPath(pathPattern);
+const matchPath = (currentPath: string, pathPattern: string, exact: boolean): Record<string, string> | null => {
+    const [patternRegexp, paramsNames] = createRegexpFormPath({currentPath: pathPattern, exact});
     const paramsCount = paramsNames.length;
 
     if (!patternRegexp.test(currentPath)) return null;
@@ -67,7 +74,7 @@ const Switch = ({children}: SwitchProps) => {
     for (const el of childrenArray) {
         validateChild(el);
 
-        const match = matchPath(router.pathname, el.props.path);
+        const match = matchPath(router.pathname, el.props.path, !!el.props.exact);
 
         if (match) {
             // прокидываем параметры в рут, чтобы не создавать лишний контекст

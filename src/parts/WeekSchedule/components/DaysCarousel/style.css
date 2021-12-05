@@ -1,0 +1,9 @@
+.dayItem {
+    padding-left: 8px;
+    padding-right: 8px;
+
+    .dayButton {
+        min-width: 180px;
+        white-space: nowrap;
+    }
+}

@@ -18,7 +18,7 @@ export const request = <T>(url: string, options: RequestInit): Promise<Result<T>
             const data = await res.json();
 
             if (ok) {
-                return {ok, status, data: data.data as T};
+                return {ok, status, data: data as T};
             } else {
                 return {ok, status, error: data.error};
             }

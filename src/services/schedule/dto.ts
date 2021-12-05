@@ -1,3 +1,3 @@
 import type {DayInfo} from '@/domain/schedule/types';
 
-export type GetWeekScheduleDto = {lessons: DayInfo[]; date: string};
+export type GetWeekScheduleDto = DayInfo[];

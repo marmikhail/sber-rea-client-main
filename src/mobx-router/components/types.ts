@@ -7,6 +7,7 @@ export type SwitchProps = {
 
 export type RouteProps = {
     path: string;
+    exact?: boolean;
     component: ComponentType;
 };
 

@@ -1,43 +1,44 @@
-import {action, computed, makeObservable, observable} from 'mobx';
-import {assertExists} from '@/utils/types';
+import {action, makeObservable, observable} from 'mobx';
 
-import {UserId, UserInfo} from './types';
-import {getUserInfo} from '@/services/user';
+import {userRepository} from '@/services/user';
+
+import {IUserRepo, UserId} from './types';
 
 export class UserStore {
-    constructor() {
+    constructor(private _userInfoRepo: IUserRepo) {
         makeObservable(this);
     }
 
     @observable
     userId: UserId | null = null;
 
-    @observable
+    @observable.ref
     isAuthenticated = false;
 
-    @observable
+    @observable.ref
     isReady = false;
 
-    @observable
-    private userInfo?: UserInfo;
+    @observable.ref
+    group: string | null = null;
 
-    @computed
-    get safeUserInfo(): UserInfo {
-        assertExists(this.userInfo);
-        return this.userInfo;
-    }
+    @observable.ref
+    name: string | null = null;
 
     @action
-    setUid(uid: UserId) {
-        this.userId = uid;
-    }
+    async fetchUserInfo(uid: string): Promise<void> {
+        const res = await this._userInfoRepo.getUserInfo(uid);
 
-    @action
-    async fetchUserInfo() {
-        const res = await getUserInfo(this.userId as UserId);
+        if (!res) {
+            this.isAuthenticated = false;
+        } else {
+            const {group, name, uid} = res;
+            this.group = group;
+            this.name = name;
+            this.userId = uid as UserId;
+        }
 
         this.isReady = true;
     }
 }
 
-export const userStore = new UserStore();
+export const userStore = new UserStore(userRepository);

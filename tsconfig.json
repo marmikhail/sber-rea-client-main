@@ -4,22 +4,23 @@
     "allowJs": true,
     "target": "es6",
     "module": "ESNext",
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "importHelpers": true,
-    "downlevelIteration": true,
+    "downlevelIteration": false,
     "isolatedModules": true,
     "strict": true,
     "noImplicitOverride": true,
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "mobx-router/*": ["src/mobx-router/*"]
     },
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["./src"],
   "exclude": ["node_modules", "dist"]

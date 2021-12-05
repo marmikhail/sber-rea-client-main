@@ -1,0 +1,6 @@
+{
+    "$schema": "https://json.schemastore.org/cosmos-config.json",
+    "webpack": {
+        "configPath": "./configs/webpack.dev.js"
+    }
+}

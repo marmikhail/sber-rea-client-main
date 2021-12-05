@@ -1,6 +1,25 @@
-import {request} from '@/utils/request';
+import {UserInfo} from '@/domain/user/types';
+import {unsafeParse} from '@/utils/unsafeParse';
+
 import type {CreateUserDto} from './dto';
+import {USER_STORAGE_KEY} from './constants';
+import {validateUserInfo} from './schema';
 
-export const register = (body: CreateUserDto) => request('', {method: 'POST', body: JSON.stringify(body)});
+export const register = async (user: CreateUserDto): Promise<void> => {
+    localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+};
 
-export const getUserInfo = (uid: number) => request(`/user/info?uid=${uid}`, {method: 'GET'});
+export const getUserInfo = async (): Promise<UserInfo | null> => {
+    const repoInfo = localStorage.getItem(USER_STORAGE_KEY);
+    if (!repoInfo) return null;
+
+    const potentialUserInfo = unsafeParse(repoInfo);
+    const isUserInfo = validateUserInfo(potentialUserInfo);
+
+    return isUserInfo ? potentialUserInfo : null;
+};
+
+export const userRepository = {
+    register,
+    getUserInfo,
+};

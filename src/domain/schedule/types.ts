@@ -1,6 +1,7 @@
 export type LessonInfo = {
     name: string;
-    place: string;
+    building: string;
+    room: string;
 };
 
 export type DayInfo = {

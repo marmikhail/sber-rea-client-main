@@ -1,4 +1,8 @@
+const {DefinePlugin} = require('webpack');
 const path = require('path');
+
+require('dotenv').config({path: path.resolve(__dirname, '../.env')});
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const SRC = path.resolve(__dirname, './../src');
@@ -9,7 +13,8 @@ const baseConfig = {
         extensions: ['.ts', '.js', '.html', '.tsx'],
         alias: {
             '@': SRC,
-            '~vars': `${SRC}/common`,
+            '~vars': path.join(SRC, 'common'),
+            'mobx-router': path.join(SRC, 'mobx-router'),
         },
     },
     entry: path.join(SRC, 'index.tsx'),
@@ -25,9 +30,11 @@ const baseConfig = {
                 test: /\.[tj]sx?$/,
                 use: [
                     {
-                        loader: 'ts-loader',
+                        loader: 'esbuild-loader',
                         options: {
-                            transpileOnly: true,
+                            loader: 'tsx',
+                            target: 'es6',
+                            tsconfigRaw: require('./../tsconfig.json'),
                         },
                     },
                 ],
@@ -41,6 +48,9 @@ const baseConfig = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.join(SRC, 'index.html'),
+        }),
+        new DefinePlugin({
+            REACT_APP_TOKEN: `'${process.env.REACT_APP_TOKEN}'`,
         }),
     ],
 };

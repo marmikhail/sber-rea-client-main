@@ -1,32 +1,31 @@
+import React from 'react';
 import {Helmet} from 'react-helmet';
 import {createGlobalStyle} from 'styled-components';
 import {darkSber} from '@sberdevices/plasma-tokens/themes';
-import {DeviceThemeProvider, ToastProvider} from '@sberdevices/plasma-ui';
-import {text, background, gradient} from '@sberdevices/plasma-tokens';
+import {ToastProvider} from '@sberdevices/plasma-ui';
+import {text, background, gradient, body1} from '@sberdevices/plasma-tokens';
+
+import {Routes} from './routes';
+import {ReactNode} from 'react';
 
 const DocumentStyle = createGlobalStyle`
     html {
         color: ${text};
         background-color: ${background};
         background-image: ${gradient};
+        ${body1}
     }
 `;
-import {Routes} from './routes';
-import {ReactNode} from 'react';
 
 const ThemeStyle = createGlobalStyle(darkSber);
 
-const WithTheme = ({children}: {children: ReactNode}) => {
-    return (
-        <ToastProvider>
-            <DeviceThemeProvider>
-                <ThemeStyle />
-                <DocumentStyle />
-                {children}
-            </DeviceThemeProvider>
-        </ToastProvider>
-    );
-};
+const WithTheme = ({children}: {children: ReactNode}) => (
+    <ToastProvider>
+        <ThemeStyle />
+        <DocumentStyle />
+        {children}
+    </ToastProvider>
+);
 
 const MainHelmet = () => (
     <Helmet>

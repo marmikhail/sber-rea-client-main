@@ -1,5 +1,5 @@
 export type CreateUserDto = {
-    uid: number;
+    uid: string;
     name: string;
     group: string;
 };

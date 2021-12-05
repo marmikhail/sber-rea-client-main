@@ -7,3 +7,8 @@ export function assertExists<T>(val: T | undefined, message?: string): asserts v
 export function assertNotNull<T>(val: T | null, message?: string): asserts val is T {
     if (val === null) throw new AssertionError(message);
 }
+
+export const tryValue = <T>(val: T | undefined, message?: string): T => {
+    assertExists(val, message);
+    return val;
+};

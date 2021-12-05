@@ -1,0 +1,7 @@
+.pagesRow {
+    margin-top: -10px;
+
+    .pagesItem {
+        margin-top: 10px;
+    }
+}

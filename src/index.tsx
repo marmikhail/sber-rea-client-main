@@ -1,15 +1,20 @@
+import React from 'react';
 import './reset.css';
 
 import {render} from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
+import {RouterProvider} from '@/mobx-router/components/RouterProvider';
+import {IHistory} from '@/types/router';
 
 import {App} from './App';
+import {container, HISTORY_KEY} from './di';
 
 const appRoot = document.getElementById('root');
 
+const history = container.get<IHistory>(HISTORY_KEY);
+
 render(
-    <BrowserRouter>
+    <RouterProvider history={history}>
         <App />
-    </BrowserRouter>,
+    </RouterProvider>,
     appRoot,
 );
