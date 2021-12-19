@@ -8,23 +8,25 @@ const {baseConfig} = require('./webpack.config');
 
 const prodRules = {
     mode: 'production',
-    rules: [
-        {
-            test: /\.css$/,
-            use: [
-                MiniCssExtractPlugin.loader,
-                {loader: 'css-loader', options: {modules: true}},
-                {
-                    loader: 'postcss-loader',
-                    options: {postcssOptions: {config: path.resolve(__dirname, '../.postcssrc.js')}},
-                },
-            ],
-        },
-        {
-            test: /\.(png|jpg|jpeg|webp)$/,
-            use: ['file-loader'],
-        },
-    ],
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {loader: 'css-loader', options: {modules: true}},
+                    {
+                        loader: 'postcss-loader',
+                        options: {postcssOptions: {config: path.resolve(__dirname, '../.postcssrc.js')}},
+                    },
+                ],
+            },
+            {
+                test: /\.(png|jpg|jpeg|webp)$/,
+                use: ['file-loader'],
+            },
+        ],
+    },
     optimization: {
         minimizer: [new CssMinimizerPlugin()],
         minimize: true,
@@ -32,4 +34,4 @@ const prodRules = {
     plugins: [new MiniCssExtractPlugin()],
 };
 
-export default merge(baseConfig, prodRules);
+module.exports = merge(baseConfig, prodRules);

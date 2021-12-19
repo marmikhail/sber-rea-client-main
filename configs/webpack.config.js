@@ -21,7 +21,7 @@ const baseConfig = {
     output: {
         clean: true,
         publicPath: '/',
-        filename: '[hashname].bundle.js',
+        filename: '[contenthash].bundle.js',
         path: DIST,
     },
     module: {

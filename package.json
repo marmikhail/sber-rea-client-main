@@ -7,7 +7,7 @@
     "dev": "webpack serve --config ./configs/webpack.dev.js",
     "space": "cosmos",
     "test": "jest",
-    "build": "webpack --config ./configs/webpack.dev.js"
+    "build": "webpack --config ./configs/webpack.prod.js"
   },
   "author": "",
   "license": "ISC",
