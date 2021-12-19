@@ -24374,7 +24374,7 @@ module.exports = function getSideChannel() {
 /******/ 	
 /******/ 	/* webpack/runtime/publicPath */
 /******/ 	(() => {
-/******/ 		__webpack_require__.p = "/";
+/******/ 		__webpack_require__.p = "/sber-rea-client/";
 /******/ 	})();
 /******/ 	
 /************************************************************************/
