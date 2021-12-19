@@ -2,6 +2,7 @@ import {getWeek, addWeeks} from 'date-fns';
 
 import {useWeekScheduleStore} from '../../context';
 import type {WeekSelectorBaseProps, WeekSelectorProps} from '.';
+import {getWeekStartDate} from '@/utils/dates/getWeekStartDate';
 
 export const useEnhance = ({onDayChange}: WeekSelectorProps): WeekSelectorBaseProps => {
     const store = useWeekScheduleStore();
@@ -9,12 +10,12 @@ export const useEnhance = ({onDayChange}: WeekSelectorProps): WeekSelectorBasePr
     const weekNumber = getWeek(store.date);
 
     const handleChooseNextWeek = () => {
-        const date = addWeeks(store.date, 1);
+        const date = getWeekStartDate(addWeeks(store.date, 1));
         onDayChange(date);
     };
 
     const handleChoosePrevWeek = () => {
-        const date = addWeeks(store.date, -1);
+        const date = getWeekStartDate(addWeeks(store.date, -1));
         onDayChange(date);
     };
 

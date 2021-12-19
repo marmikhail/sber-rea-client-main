@@ -9,3 +9,4 @@ declare module '*.png' {
 }
 
 declare const REACT_APP_TOKEN: string;
+declare const ENV: 'prod' | 'dev';

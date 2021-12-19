@@ -51,6 +51,7 @@ const baseConfig = {
         }),
         new DefinePlugin({
             REACT_APP_TOKEN: `'${process.env.REACT_APP_TOKEN}'`,
+            ENV: '"dev"',
         }),
     ],
 };

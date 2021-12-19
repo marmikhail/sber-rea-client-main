@@ -7,7 +7,9 @@
     "dev": "webpack serve --config ./configs/webpack.dev.js",
     "space": "cosmos",
     "test": "jest",
-    "build": "webpack --config ./configs/webpack.prod.js"
+    "build": "webpack --config ./configs/webpack.prod.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "author": "",
   "license": "ISC",

@@ -5,9 +5,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const {baseConfig} = require('./webpack.config');
+const {DefinePlugin} = require('webpack');
 
 const prodRules = {
     mode: 'production',
+    output: {
+        publicPath: '/sber-rea-client/',
+    },
     module: {
         rules: [
             {
@@ -31,7 +35,12 @@ const prodRules = {
         minimizer: [new CssMinimizerPlugin()],
         minimize: true,
     },
-    plugins: [new MiniCssExtractPlugin()],
+    plugins: [
+        new MiniCssExtractPlugin(),
+        new DefinePlugin({
+            ENV: '"prod"',
+        }),
+    ],
 };
 
 module.exports = merge(baseConfig, prodRules);

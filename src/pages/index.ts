@@ -5,3 +5,4 @@ export {default as WeekSchedule} from './WeekSchedule';
 export {default as Today} from './Today';
 export {default as Lesson} from './Lesson';
 export {default as Settings} from './Settings';
+export {default as OtherGroup} from './OtherGroup';

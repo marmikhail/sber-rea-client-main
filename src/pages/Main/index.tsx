@@ -31,7 +31,7 @@ const MainPage: React.VFC = () => (
                 <MenuCard name="Настройки" description="Сменить имя или группу" href="/settings" />
             </PageItem>
             <PageItem>
-                <MenuCard styling="coming_soon" name="Для другой группы" href="/contacts" />
+                <MenuCard name="Для другой группы" href="/other-group" />
             </PageItem>
             <PageItem>
                 <MenuCard styling="coming_soon" name="Карта" href="/map" />
