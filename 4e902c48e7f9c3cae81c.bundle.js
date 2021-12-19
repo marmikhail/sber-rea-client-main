@@ -35607,9 +35607,8 @@ const MainPage = () => /* @__PURE__ */ react.createElement(Container_Container, 
   description: "\u0421\u043C\u0435\u043D\u0438\u0442\u044C \u0438\u043C\u044F \u0438\u043B\u0438 \u0433\u0440\u0443\u043F\u043F\u0443",
   href: "/settings"
 })), /* @__PURE__ */ react.createElement(PageItem, null, /* @__PURE__ */ react.createElement(MenuCard, {
-  styling: "coming_soon",
   name: "\u0414\u043B\u044F \u0434\u0440\u0443\u0433\u043E\u0439 \u0433\u0440\u0443\u043F\u043F\u044B",
-  href: "/contacts"
+  href: "/other-group"
 })), /* @__PURE__ */ react.createElement(PageItem, null, /* @__PURE__ */ react.createElement(MenuCard, {
   styling: "coming_soon",
   name: "\u041A\u0430\u0440\u0442\u0430",
@@ -38976,15 +38975,16 @@ function addWeeks(dirtyDate, dirtyAmount) {
 ;// CONCATENATED MODULE: ./src/parts/WeekSchedule/components/WeekSelector/useEnhance.ts
 
 
+
 const useEnhance_useEnhance = ({ onDayChange }) => {
   const store = useWeekScheduleStore();
   const weekNumber = getWeek(store.date);
   const handleChooseNextWeek = () => {
-    const date = addWeeks(store.date, 1);
+    const date = getWeekStartDate(addWeeks(store.date, 1));
     onDayChange(date);
   };
   const handleChoosePrevWeek = () => {
-    const date = addWeeks(store.date, -1);
+    const date = getWeekStartDate(addWeeks(store.date, -1));
     onDayChange(date);
   };
   return { weekNumber, onChooseNextWeek: handleChooseNextWeek, onChoosePrevWeek: handleChoosePrevWeek };
@@ -40738,7 +40738,55 @@ const { usePageStore: Settings_usePageStore, PageComponent: Settings_PageCompone
 });
 /* harmony default export */ const Settings = (Settings_PageComponent);
 
+;// CONCATENATED MODULE: ./src/pages/OtherGroup/styles.css
+// extracted by mini-css-extract-plugin
+/* harmony default export */ const OtherGroup_styles = ({"form":"S0LUWUITjZAcfIOTJ3fS","groupField":"vwVsB5RGYPf6e90yAc4j","submitBtn":"kFtjTMfMrxBz3QQStw2k"});
+;// CONCATENATED MODULE: ./src/pages/OtherGroup/index.tsx
+
+
+
+
+
+
+
+const OtherGroupPage = () => {
+  const showToast = useShowToast();
+  const router = useRouter();
+  const [group, setGroup] = (0,react.useState)("");
+  const handleBack = () => {
+    router.push("/");
+  };
+  const handleSubmit = () => {
+    if (!group)
+      showToast("\u0423\u043A\u0430\u0436\u0438\u0442\u0435 \u0433\u0440\u0443\u043F\u043F\u0443");
+    else
+      router.push(buildWeekSchedulePath(group, new Date()));
+  };
+  return /* @__PURE__ */ react.createElement(Container_Container, null, /* @__PURE__ */ react.createElement(uikit_Spacer, {
+    size: "s"
+  }), /* @__PURE__ */ react.createElement(HeaderRoot, null, /* @__PURE__ */ react.createElement(HeaderBack, {
+    onClick: handleBack
+  }), /* @__PURE__ */ react.createElement(HeaderContent, null, /* @__PURE__ */ react.createElement(TextBox, null, /* @__PURE__ */ react.createElement(Title, null, "\u0412\u044B\u0431\u043E\u0440 \u0433\u0440\u0443\u043F\u043F\u044B")))), /* @__PURE__ */ react.createElement("form", {
+    className: OtherGroup_styles.form,
+    onSubmit: handleSubmit
+  }, /* @__PURE__ */ react.createElement(TextField, {
+    className: OtherGroup_styles.groupField,
+    name: "group",
+    label: "\u0413\u0440\u0443\u043F\u043F\u0430",
+    value: group,
+    onChange: (e) => setGroup(e.currentTarget.value)
+  }), /* @__PURE__ */ react.createElement(uikit_Spacer, {
+    size: "s"
+  }), /* @__PURE__ */ react.createElement(Button_Button, {
+    view: "primary",
+    className: OtherGroup_styles.submitBtn,
+    type: "submit"
+  }, "\u041A \u0440\u0430\u0441\u043F\u0438\u0441\u0430\u043D\u0438\u044E")));
+};
+/* harmony default export */ const OtherGroup = (OtherGroupPage);
+
 ;// CONCATENATED MODULE: ./src/pages/index.ts
+
 
 
 
@@ -40752,9 +40800,7 @@ const { usePageStore: Settings_usePageStore, PageComponent: Settings_PageCompone
 
 
 
-const Routes = () => /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(components_Link, {
-  to: "/"
-}, "xxx"), /* @__PURE__ */ react.createElement(components_Switch, null, /* @__PURE__ */ react.createElement(components_AuthenticatedRoute, {
+const Routes = () => /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(components_Switch, null, /* @__PURE__ */ react.createElement(components_AuthenticatedRoute, {
   exact: true,
   path: "/",
   component: Main
@@ -40778,6 +40824,10 @@ const Routes = () => /* @__PURE__ */ react.createElement(react.Fragment, null, /
   exact: true,
   path: "/settings",
   component: Settings
+}), /* @__PURE__ */ react.createElement(components_AuthenticatedRoute, {
+  exact: true,
+  path: "/other-group",
+  component: OtherGroup
 })));
 
 ;// CONCATENATED MODULE: ./src/App/useAppInit.ts
