@@ -39117,6 +39117,7 @@ fetcher_decorateClass([
 
 ;// CONCATENATED MODULE: ./src/settings.ts
 
+const CURRENT_ENV = tryValue("dev", "\u041D\u0443\u0436\u043D\u043E \u0437\u0430\u0434\u0430\u0442\u044C ENV \u0432 DefinePlugin");
 const SBER_TOKEN = tryValue('eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5ZjcyM2JmMDExYWYxOTk3OGI3OTExNWZlNmYyYWI1NWNiODc2NDM0MGU0ZDFlMmZlY2NhYzYwZTQ2OWQ5YzVhNTM5YmU5MjcwMDQyNjI5OCIsImF1ZCI6IlZQUyIsImV4cCI6MTYzOTk0ODI5OSwiaWF0IjoxNjM5ODYxODg5LCJpc3MiOiJLRVlNQVNURVIiLCJ0eXBlIjoiQmVhcmVyIiwianRpIjoiMDcwMzFhNjUtOTRjNi00NTlmLWIzNTItZDUxNzIwY2JjZWQ2Iiwic2lkIjoiNTVmODM2ZDYtZTRlZS00MzlmLTllZDMtYjg2MDkxMGU4Mzg5In0.LLweeoyk-0ymhl6ipjBk3OcwM6iMkVYrTAUgeNCZQcO-TUgv1EM1iM_-kGmiBkXGCM83oBArIfQgnb8mK1T5iyR83qG-cAE4erWZ4rpIwZktwIMZBJaYb0hdGz0mbd5uPkvU2zeThVaCkE9INUfqPJ2nsOGpYFl7VsS9zgZJIVLy2JJv0BZM4FmELIlRkjEjKoJDi7xfSdflEKuUuBlUHsPuWNfUcs-GoAVYZnAhve7IqOiqSa81cwfU15w-2p3DulRZAUcHNu2SSI1xDvlNn5a-F7jxtYBV8pO4lejNZ7f6R7N11-mSsda66DsfPbPvtN92t1MVMhhjUlNKz_zL2PIMaFW_nChnbWa7dvew4u1ONayGUD5w635tyP_xerxs2F4FCQUrExkY5d6Q1aTwtjkliopEZTYoXs-UIgb4nuNzyIXzgF9ML6bAKcAibkD8yVSRKUJoTCU3kWVFGpfjdn2NAJbAAfnjswWbAUGYa7A5TXruZ-RHWMvLpaFl4X6I6cspmAd9_CU-52ANv0NrjGhbtmPdvhuy9X6VYBemM11qUS0pjGiu1uIfsdUUe3vl5q5RPMjnta_k6x_WWUPS2ifzh9yNxLVcWF6f-2u7aRnWvEUtTpUfEOM_0zz55jBHfv_URSJAOH7LKeWjS70R0auFrTHXTKHrL1OiF500vLw', "\u041D\u0443\u0436\u043D\u043E \u0437\u0430\u0434\u0430\u0442\u044C REACT_APP_TOKEN \u0432 dotenv");
 const SBER_APP = "mir_rea";
 const API_URL = "https://rasp-rea.herokuapp.com";
@@ -40751,7 +40752,9 @@ const { usePageStore: Settings_usePageStore, PageComponent: Settings_PageCompone
 
 
 
-const Routes = () => /* @__PURE__ */ react.createElement(components_Switch, null, /* @__PURE__ */ react.createElement(components_AuthenticatedRoute, {
+const Routes = () => /* @__PURE__ */ react.createElement(react.Fragment, null, /* @__PURE__ */ react.createElement(components_Link, {
+  to: "/"
+}, "xxx"), /* @__PURE__ */ react.createElement(components_Switch, null, /* @__PURE__ */ react.createElement(components_AuthenticatedRoute, {
   exact: true,
   path: "/",
   component: Main
@@ -40775,7 +40778,7 @@ const Routes = () => /* @__PURE__ */ react.createElement(components_Switch, null
   exact: true,
   path: "/settings",
   component: Settings
-}));
+})));
 
 ;// CONCATENATED MODULE: ./src/App/useAppInit.ts
 
