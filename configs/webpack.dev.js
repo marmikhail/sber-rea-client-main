@@ -29,6 +29,10 @@ const devRules = {
                     },
                 ],
             },
+            {
+                test: /\.(png|jpg|jpeg|webp)$/,
+                use: ['file-loader'],
+            },
         ],
     },
 };

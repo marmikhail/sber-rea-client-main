@@ -1,25 +1,21 @@
 import {getWeek, addWeeks} from 'date-fns';
 
-import {useRouter} from '@/mobx-router/hooks/useRouter';
-import {buildWeekSchedulePath} from '@/pages/WeekSchedule/builders';
-
 import {useWeekScheduleStore} from '../../context';
-import type {WeekSelectorBaseProps} from '.';
+import type {WeekSelectorBaseProps, WeekSelectorProps} from '.';
 
-export const useEnhance = (): WeekSelectorBaseProps => {
-    const router = useRouter();
+export const useEnhance = ({onDayChange}: WeekSelectorProps): WeekSelectorBaseProps => {
     const store = useWeekScheduleStore();
 
     const weekNumber = getWeek(store.date);
 
     const handleChooseNextWeek = () => {
         const date = addWeeks(store.date, 1);
-        router.push(buildWeekSchedulePath(store.group, date));
+        onDayChange(date);
     };
 
     const handleChoosePrevWeek = () => {
         const date = addWeeks(store.date, -1);
-        router.push(buildWeekSchedulePath(store.group, date));
+        onDayChange(date);
     };
 
     return {weekNumber, onChooseNextWeek: handleChooseNextWeek, onChoosePrevWeek: handleChoosePrevWeek};

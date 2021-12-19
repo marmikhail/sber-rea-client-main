@@ -9,41 +9,53 @@ import {WeekSelector} from './components/WeekSelector';
 import {WeekScheduleStoreContext} from './context';
 import {WeekScheduleStore} from './localStore';
 import {Lessons} from './components/Lessons';
+import {TodayButton} from './components/TodayButton';
+import css from './styles.css';
 
-export type WeekScheduleProps = {
-    currentDay: Date | string;
+export type WeekScheduleBaseProps = {
+    handleDayChange: (day: Date) => void;
+    // TODO: начать прокидывать для дней
+    // handleDaySelect: (day: Date, pair: number) => void;
+};
+
+export type WeekScheduleProps = WeekScheduleBaseProps & {
+    date: Date | string;
     group: string;
 };
 
-const WeekScheduleBase = () => (
-    <>
-        <Container>
+const WeekScheduleBase = ({handleDayChange}: WeekScheduleBaseProps) => (
+    <div className={css.weekSchedule}>
+        <Container className={css.autoHeightContainer}>
             <Spacer size="m" />
-            <WeekSelector />
+            <WeekSelector onDayChange={handleDayChange} />
+            <Spacer size="m" />
+            <TodayButton />
             <Spacer size="m" />
         </Container>
 
-        <DaysCarousel />
+        <div className={css.autoHeightContainer}>
+            <DaysCarousel onDayChange={handleDayChange} />
+        </div>
 
-        <Container>
+        <Container className={css.lessonsContainer}>
             <Spacer size="xxl" />
             <Lessons />
         </Container>
-    </>
+    </div>
 );
 
-const WeekSchedule = ({currentDay, group}: WeekScheduleProps) => {
-    const store = useConstant(() => new WeekScheduleStore(group, currentDay), []);
+const WeekSchedule = ({date, group, handleDayChange}: WeekScheduleProps) => {
+    const store = useConstant(() => new WeekScheduleStore(group, date), []);
 
     useEffect(() => {
-        store.setDate(currentDay);
+        store.setDate(date);
         store.setGroup(group);
         store.fetchWeekInfo();
-    }, [store, currentDay, group]);
+    }, [store, date, group]);
 
     return (
         <WeekScheduleStoreContext.Provider value={store}>
-            <WeekScheduleBase />
+            <WeekScheduleBase handleDayChange={handleDayChange} />
         </WeekScheduleStoreContext.Provider>
     );
 };

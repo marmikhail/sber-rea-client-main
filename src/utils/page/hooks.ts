@@ -11,4 +11,4 @@ export const usePageParams = (): Record<string, unknown> => {
     const params = useParams();
     return params;
 };
-export const usePageQuery = () => useRouter().query;
+export const usePageQuery = <TQuery extends Record<string, string>>(): TQuery => useRouter().query as TQuery;

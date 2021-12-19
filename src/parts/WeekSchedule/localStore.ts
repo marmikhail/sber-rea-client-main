@@ -1,7 +1,7 @@
 import {action, makeObservable, observable} from 'mobx';
 
 import {Fetcher} from '@/utils/store/fetcher';
-import {getCurrentWeekSchedule} from '@/services/schedule';
+import {getCurrentWeekSchedule} from '@/services/api/schedule';
 import {calculateWeekIndex} from '@/utils/dates/calculateWeekIndex';
 
 export class WeekScheduleStore {

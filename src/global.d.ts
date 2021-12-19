@@ -3,4 +3,9 @@ declare module '*.css' {
     export default mod;
 }
 
+declare module '*.png' {
+    const image: string;
+    export default image;
+}
+
 declare const REACT_APP_TOKEN: string;

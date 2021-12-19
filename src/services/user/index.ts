@@ -9,6 +9,8 @@ export const register = async (user: CreateUserDto): Promise<void> => {
     localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
 };
 
+export const updateUser = register;
+
 export const getUserInfo = async (): Promise<UserInfo | null> => {
     const repoInfo = localStorage.getItem(USER_STORAGE_KEY);
     if (!repoInfo) return null;
@@ -21,5 +23,6 @@ export const getUserInfo = async (): Promise<UserInfo | null> => {
 
 export const userRepository = {
     register,
+    updateUser,
     getUserInfo,
 };

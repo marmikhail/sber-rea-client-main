@@ -1,7 +1,10 @@
 import React, {FC} from 'react';
+import {Col, Row, Container, HeaderRoot, HeaderLogo, HeaderTitle} from '@sberdevices/plasma-ui';
 
 import {MenuCard} from '@/components/MenuCard';
-import {Col, Row, Container} from '@sberdevices/plasma-ui';
+import {Spacer} from '@/uikit';
+import logo from '@/images/logo.png';
+
 import css from './styles.css';
 
 const PageItem: FC = ({children}) => (
@@ -10,17 +13,31 @@ const PageItem: FC = ({children}) => (
     </Col>
 );
 
-const MainPage = () => (
+const MainPage: React.VFC = () => (
     <Container>
+        <Spacer size="s" />
+
+        <HeaderRoot>
+            <HeaderLogo src={logo} />
+            <HeaderTitle>Расписание РЭУ</HeaderTitle>
+        </HeaderRoot>
+
+        <Spacer size="s" />
         <Row className={css.pagesRow}>
             <PageItem>
-                <MenuCard name="Расписание на сегодня" href="/today" />
+                <MenuCard name="Ваше расписание" href="/today" />
             </PageItem>
             <PageItem>
-                <MenuCard name="Расписание на неделю" href="/today" description="Актуальное расписание" />
+                <MenuCard name="Настройки" description="Сменить имя или группу" href="/settings" />
             </PageItem>
             <PageItem>
-                <MenuCard name="Карта" href="/map" />
+                <MenuCard styling="coming_soon" name="Для другой группы" href="/contacts" />
+            </PageItem>
+            <PageItem>
+                <MenuCard styling="coming_soon" name="Карта" href="/map" />
+            </PageItem>
+            <PageItem>
+                <MenuCard styling="coming_soon" name="Контакты" href="/contacts" />
             </PageItem>
         </Row>
     </Container>

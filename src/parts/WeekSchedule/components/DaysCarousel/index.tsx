@@ -9,6 +9,8 @@ import {getWeekStartDate} from '@/utils/dates/getWeekStartDate';
 import css from './style.css';
 import {observer} from 'mobx-react-lite';
 import {useEnhance} from './useEnhance';
+import {fixWeekDay} from '@/utils/dates/fixDate';
+import {WEEK_DAY} from '@/constants/date';
 
 export type DayItemProps = {
     date: Date;
@@ -27,18 +29,18 @@ const DayItem = ({date, isSelected, onChoose}: DayItemProps) => {
     );
 };
 
-export type DaysCarouselProps = {
+export type DaysCarouselBaseProps = {
     currentDay: Date;
     onDayChange: (dayNum: Date) => void;
 };
 
-export const DaysCarouselBase = ({currentDay, onDayChange}: DaysCarouselProps) => {
-    const currentDayIndex = currentDay.getDay() ? currentDay.getDay() - 1 : 7;
+export const DaysCarouselBase = ({currentDay, onDayChange}: DaysCarouselBaseProps) => {
+    const currentDayIndex = fixWeekDay(currentDay.getDay());
     const firstWeekDay = getWeekStartDate(currentDay);
 
     return (
         <Carousel paddingEnd="12px" paddingStart="12px" className={css.carousel} axis="x" index={currentDayIndex}>
-            {Array.from({length: 6}).map((_, ind) => (
+            {Array.from({length: currentDayIndex === WEEK_DAY.SUN ? 7 : 6}).map((_, ind) => (
                 <CarouselItem className={css.dayItem} key={ind}>
                     <DayItem
                         isSelected={currentDayIndex === ind}
@@ -51,8 +53,12 @@ export const DaysCarouselBase = ({currentDay, onDayChange}: DaysCarouselProps) =
     );
 };
 
-export const DaysCarousel = observer(() => {
-    const enhanced = useEnhance();
+export type DaysCarouselProps = {
+    onDayChange: (date: Date) => void;
+};
+
+export const DaysCarousel = observer((props: DaysCarouselProps) => {
+    const enhanced = useEnhance(props);
 
     return <DaysCarouselBase {...enhanced} />;
 });

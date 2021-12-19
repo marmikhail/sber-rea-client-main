@@ -35,6 +35,7 @@ export class History {
     };
 
     push: BrowserHistory['push'] = this.browserHistory.push;
+    replace: BrowserHistory['push'] = this.browserHistory.replace;
     pop: BrowserHistory['back'] = () => this.browserHistory.back;
     go: BrowserHistory['go'] = () => this.browserHistory.go;
 

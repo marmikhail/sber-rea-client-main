@@ -1,16 +1,15 @@
-import React, {Children, cloneElement, ReactElement} from 'react';
+import {Children, cloneElement, ReactElement} from 'react';
 import {observer} from 'mobx-react-lite';
 
 import {memo} from '@/mobx-router/utils/memo';
 
-import {Route} from '.';
 import {InvalidSwitchChildError} from '../errors';
 import {useRouter} from '../hooks/useRouter';
 import type {RouteProps, SwitchProps} from './types';
 import {RouteInnerProps} from './Route';
 
 function validateChild(el: ReturnType<typeof Children.toArray>[number]): asserts el is ReactElement<RouteProps> {
-    if (typeof el === 'string' || typeof el === 'number' || !('type' in el) || el.type !== Route) {
+    if (typeof el === 'string' || typeof el === 'number' || !('type' in el)) {
         throw new InvalidSwitchChildError('Switch can only have instances of Route in its children');
     }
 }

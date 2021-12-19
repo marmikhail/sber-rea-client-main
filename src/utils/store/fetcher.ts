@@ -37,11 +37,12 @@ export class Fetcher<TParams extends unknown[], TRes extends unknown> {
     }
 
     @action
-    async fetch(...args: TParams): Promise<void> {
+    async fetch(...args: TParams): Promise<Result<TRes>> {
         this.isLoading = true;
 
         const res = await this._fetcher(...args);
-
         this.handleRes(res);
+
+        return res;
     }
 }

@@ -26,8 +26,12 @@ const WeekSelectorBase = ({weekNumber, onChooseNextWeek, onChoosePrevWeek}: Week
     </div>
 );
 
-export const WeekSelector = () => {
-    const enhanced = useEnhance();
+export type WeekSelectorProps = {
+    onDayChange: (day: Date) => void;
+};
+
+export const WeekSelector = (props: WeekSelectorProps) => {
+    const enhanced = useEnhance(props);
 
     return <WeekSelectorBase {...enhanced} />;
 };

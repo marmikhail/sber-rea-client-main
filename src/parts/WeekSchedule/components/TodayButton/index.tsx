@@ -3,8 +3,13 @@ import React from 'react';
 import {Button} from '@sberdevices/plasma-ui';
 import {useRouter} from '@/mobx-router/hooks/useRouter';
 
-const TodayButton = () => {
+export const TodayButton = () => {
     const router = useRouter();
+    const handleClick = () => router.push('/today');
 
-    <Button>Сегодня</Button>;
+    return (
+        <Button view="secondary" size="s" onClick={handleClick}>
+            Покажи на сегодня
+        </Button>
+    );
 };

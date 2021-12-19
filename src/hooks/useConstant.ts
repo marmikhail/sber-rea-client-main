@@ -11,6 +11,7 @@ export const useConstant = <T>(getter: () => T, deps?: unknown[]): T => {
     if (!initializedRef.current || !compareDeps(depsRef.current, deps)) {
         valueRef.current = getter();
         depsRef.current = deps;
+        initializedRef.current = true;
     }
 
     return valueRef.current as T;

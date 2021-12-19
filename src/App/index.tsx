@@ -1,12 +1,13 @@
 import React from 'react';
+import type {ReactNode} from 'react';
 import {Helmet} from 'react-helmet';
-import {createGlobalStyle} from 'styled-components';
+import styled, {createGlobalStyle} from 'styled-components';
 import {darkSber} from '@sberdevices/plasma-tokens/themes';
 import {ToastProvider} from '@sberdevices/plasma-ui';
-import {text, background, gradient, body1} from '@sberdevices/plasma-tokens';
+import {text, background, gradient, body1, sberBox} from '@sberdevices/plasma-tokens';
 
 import {Routes} from './routes';
-import {ReactNode} from 'react';
+import {useAppInit} from './useAppInit';
 
 const DocumentStyle = createGlobalStyle`
     html {
@@ -17,13 +18,18 @@ const DocumentStyle = createGlobalStyle`
     }
 `;
 
+const StyledWrapper = styled.div`
+    padding-bottom: 200px;
+    ${sberBox[':root']}
+`;
+
 const ThemeStyle = createGlobalStyle(darkSber);
 
 const WithTheme = ({children}: {children: ReactNode}) => (
     <ToastProvider>
         <ThemeStyle />
         <DocumentStyle />
-        {children}
+        <StyledWrapper>{children}</StyledWrapper>
     </ToastProvider>
 );
 
@@ -34,13 +40,15 @@ const MainHelmet = () => (
 );
 
 export const App: React.VFC = () => {
+    useAppInit();
+
     return (
-        <>
+        <div>
             <MainHelmet />
 
             <WithTheme>
                 <Routes />
             </WithTheme>
-        </>
+        </div>
     );
 };

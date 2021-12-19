@@ -2,7 +2,7 @@ import {createSmartappDebugger, createAssistant} from '@sberdevices/assistant-cl
 
 import {SBER_TOKEN} from '@/settings';
 
-import {AssistantAction} from './types';
+import {AssistantAction, AssistantData} from './types';
 
 const getState = () => ({});
 const initAssistant = () => {
@@ -20,15 +20,24 @@ const initAssistant = () => {
     return createAssistant({getState});
 };
 
+type ActionHandler = (action: AssistantAction) => void;
+
 export class AssistantStore {
     private assistant: ReturnType<typeof createAssistant>;
-    private commandHandlersRepo = new Set<(action: AssistantAction) => void>();
+    private commandHandlersRepo = new Map<string, Set<ActionHandler>>();
 
     constructor() {
         this.assistant = initAssistant();
 
-        this.assistant.on('command', res => {
-            this.commandHandlersRepo.forEach(f => f(res));
+        this.assistant.on('data', res => {
+            if (res.type !== 'smart_app_data') return;
+
+            const {action} = res as unknown as AssistantData;
+            const handlers = this.commandHandlersRepo.get(action.type);
+
+            if (handlers) {
+                handlers.forEach(f => f(action));
+            }
         });
     }
 
@@ -41,11 +50,22 @@ export class AssistantStore {
         );
     };
 
-    subscribe = <TAction extends AssistantAction>(func: (res: TAction) => void): void => {
-        this.commandHandlersRepo.add(func as (action: AssistantAction) => void);
+    subscribe = <T extends AssistantAction>(actionType: string, func: (action: T) => void): void => {
+        const handlersPool = this.commandHandlersRepo.get(actionType);
+
+        if (!handlersPool) {
+            const newHandlersSet = new Set<ActionHandler>();
+            newHandlersSet.add(func as ActionHandler);
+
+            this.commandHandlersRepo.set(actionType, newHandlersSet);
+        } else {
+            handlersPool.add(func as ActionHandler);
+        }
     };
 
-    unsubscribe = (func: () => void): void => {
-        this.commandHandlersRepo.delete(func);
+    unsubscribe = <T extends AssistantAction>(actionType: string, func: (action: T) => void): void => {
+        const handlersPool = this.commandHandlersRepo.get(actionType);
+
+        if (handlersPool) handlersPool.delete(func as ActionHandler);
     };
 }

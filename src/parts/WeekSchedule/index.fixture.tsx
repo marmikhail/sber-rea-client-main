@@ -8,7 +8,9 @@ import WeekSchedule from '.';
 
 export default mockedComponent(() => {
     const [group] = useValue('Группа', {defaultValue: '291д-10мо/18'});
-    const [date] = useValue('Дата', {defaultValue: formatUrlDate(new Date())});
+    const [date, setDate] = useValue('Дата', {defaultValue: formatUrlDate(new Date())});
 
-    return <WeekSchedule group={group} currentDay={date} />;
+    const handleDayChange = (date: Date) => setDate(formatUrlDate(date));
+
+    return <WeekSchedule group={group} date={date} handleDayChange={handleDayChange} />;
 });

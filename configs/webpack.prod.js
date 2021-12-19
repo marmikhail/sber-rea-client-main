@@ -1,10 +1,35 @@
-import {merge} from 'webpack-merge';
-import type {Configuration} from 'webpack';
+const {merge} = require('webpack-merge');
+const path = require('path');
 
-import {baseConfig} from './webpack.config';
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
-const prodRules: Configuration = {
+const {baseConfig} = require('./webpack.config');
+
+const prodRules = {
     mode: 'production',
+    rules: [
+        {
+            test: /\.css$/,
+            use: [
+                MiniCssExtractPlugin.loader,
+                {loader: 'css-loader', options: {modules: true}},
+                {
+                    loader: 'postcss-loader',
+                    options: {postcssOptions: {config: path.resolve(__dirname, '../.postcssrc.js')}},
+                },
+            ],
+        },
+        {
+            test: /\.(png|jpg|jpeg|webp)$/,
+            use: ['file-loader'],
+        },
+    ],
+    optimization: {
+        minimizer: [new CssMinimizerPlugin()],
+        minimize: true,
+    },
+    plugins: [new MiniCssExtractPlugin()],
 };
 
 export default merge(baseConfig, prodRules);
