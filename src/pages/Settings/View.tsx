@@ -22,7 +22,6 @@ import {userStore} from '@/domain/user/store';
 import {Spacer} from '@/uikit';
 
 export type FormItems = {
-    name: string;
     group: string;
 };
 
@@ -44,8 +43,8 @@ const View = observer(() => {
         if (store.updateError && !store.updateInProgress) showToast(store.updateError);
     }, [store.updateError, store.updateInProgress, showToast]);
 
-    const onSubmit = ({name, group}: FormItems) => {
-        store.update('123', name, group);
+    const onSubmit = ({group}: FormItems) => {
+        store.update(group);
     };
 
     const handleBack = () => router.push('/');
@@ -67,13 +66,6 @@ const View = observer(() => {
                 <Headline1 mb={32}>Настройки</Headline1>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <TextField
-                        defaultValue={userStore.userInfoSafe.name}
-                        className={css.textField}
-                        label="Имя"
-                        {...register('name')}
-                        required
-                    />
                     <TextField
                         defaultValue={userStore.userInfoSafe.group}
                         className={css.textField}

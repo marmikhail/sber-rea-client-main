@@ -28,7 +28,7 @@ const MainPage: React.VFC = () => (
                 <MenuCard name="Ваше расписание" href="/today" />
             </PageItem>
             <PageItem>
-                <MenuCard name="Настройки" description="Сменить имя или группу" href="/settings" />
+                <MenuCard name="Настройки" description="Сменить группу" href="/settings" />
             </PageItem>
             <PageItem>
                 <MenuCard name="Для другой группы" href="/other-group" />

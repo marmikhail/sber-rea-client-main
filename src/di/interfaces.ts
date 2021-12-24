@@ -1,4 +1,4 @@
-import {AssistantAction} from '@sberdevices/assistant-client';
+import {AssistantAction} from '@/domain/assistant/types';
 
 export type IAssistant = {
     sendCommand: (action: AssistantAction) => Promise<void>;

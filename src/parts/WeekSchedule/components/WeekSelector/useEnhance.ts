@@ -15,6 +15,8 @@ export const useEnhance = ({onDayChange}: WeekSelectorProps): WeekSelectorBasePr
     };
 
     const handleChoosePrevWeek = () => {
+        console.log(store.date);
+
         const date = getWeekStartDate(addWeeks(store.date, -1));
         onDayChange(date);
     };

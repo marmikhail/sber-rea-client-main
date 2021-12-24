@@ -1,15 +1,15 @@
 import {CreateUserDto} from '@/services/user/dto';
+import {Result} from '@/utils/request';
 
 export type UserInfo = {
-    uid: string;
     group: string;
-    name: string;
+    login: string;
 };
 
 export type IUserRepo = {
-    register: (info: CreateUserDto) => Promise<void>;
-    updateUser: (info: CreateUserDto) => Promise<void>;
-    getUserInfo: () => Promise<UserInfo | null>;
+    register: (info: CreateUserDto) => Promise<Result<UserInfo>>;
+    updateUser: (info: CreateUserDto) => Promise<Result<UserInfo>>;
+    getUserInfo: (userId: string) => Promise<UserInfo | null>;
 };
 
 export type IUserStore = {
@@ -19,7 +19,9 @@ export type IUserStore = {
     userInfo: UserInfo | null;
     userInfoSafe: UserInfo;
 
-    fetchUserInfo: () => Promise<void>;
+    userId: string | null;
+    userIdSafe: string;
+
     setUser: (userInfo: UserInfo) => Promise<void>;
     saveUser: (userInfo: UserInfo) => Promise<void>;
 };

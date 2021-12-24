@@ -22,29 +22,19 @@ export class UserStore implements IUserStore {
     @observable.ref
     userInfo: UserInfo | null = null;
 
+    @observable.ref
+    userId: string | null = null;
+
+    @computed
+    get userIdSafe(): string {
+        assertNotNull(this.userId);
+        return this.userId;
+    }
+
     @computed
     get userInfoSafe(): UserInfo {
         assertNotNull(this.userInfo);
         return this.userInfo;
-    }
-
-    @action
-    async fetchUserInfo(): Promise<void> {
-        this.isAuthChecked = false;
-        this.isAuthenticated = false;
-        this.userInfo = null;
-
-        const res = await this._userInfoRepo.getUserInfo();
-
-        if (!res) {
-            this.isAuthenticated = false;
-            this.userInfo = null;
-        } else {
-            this.isAuthenticated = true;
-            this.userInfo = res;
-        }
-
-        this.isAuthChecked = true;
     }
 
     @action

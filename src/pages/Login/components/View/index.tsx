@@ -12,7 +12,6 @@ import css from './styles.css';
 import {useRouter} from '@/mobx-router/hooks/useRouter';
 
 export type FormItems = {
-    name: string;
     group: string;
 };
 
@@ -34,8 +33,8 @@ const ViewBase = observer(() => {
         if (store.registerError && !store.registerInProgress) showToast(store.registerError);
     }, [store.registerError, store.registerInProgress, showToast]);
 
-    const onSubmit = ({name, group}: FormItems) => {
-        store.register('123', name, group);
+    const onSubmit = ({group}: FormItems) => {
+        store.register(group);
     };
 
     return (
@@ -44,7 +43,6 @@ const ViewBase = observer(() => {
                 <Headline1 mb={32}>Регистрация</Headline1>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <TextField className={css.textField} label="Имя" {...register('name')} required />
                     <TextField className={css.textField} label="Группа" {...register('group')} required />
 
                     <Button disabled={store.registerInProgress} view="primary" size="m" className={css.submitBtn}>

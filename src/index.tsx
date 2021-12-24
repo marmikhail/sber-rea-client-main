@@ -1,5 +1,6 @@
 import React from 'react';
 import './reset.css';
+import './domain/assistant/store';
 
 import {render} from 'react-dom';
 import {RouterProvider} from '@/mobx-router/components/RouterProvider';

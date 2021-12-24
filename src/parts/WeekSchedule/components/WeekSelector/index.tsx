@@ -4,6 +4,7 @@ import {Button, TextBox} from '@sberdevices/plasma-ui';
 
 import {useEnhance} from './useEnhance';
 import css from './style.css';
+import {observer} from 'mobx-react-lite';
 
 export type WeekSelectorBaseProps = {
     weekNumber: number;
@@ -30,8 +31,8 @@ export type WeekSelectorProps = {
     onDayChange: (day: Date) => void;
 };
 
-export const WeekSelector = (props: WeekSelectorProps) => {
+export const WeekSelector = observer((props: WeekSelectorProps) => {
     const enhanced = useEnhance(props);
 
     return <WeekSelectorBase {...enhanced} />;
-};
+});

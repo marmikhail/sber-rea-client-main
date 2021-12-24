@@ -1,9 +1,13 @@
-import {userStore} from '@/domain/user/store';
-import {useStore} from '@/hooks/useStore';
 import {useEffect} from 'react';
+
+import {CommonHandler} from '@/domain/assistant/presets/common';
+import {AuthStore} from '@/domain/user/authStore';
 
 export const useAppInit = (): void => {
     useEffect(() => {
-        userStore.fetchUserInfo();
+        new AuthStore();
+
+        const commonAssistantHandlers = new CommonHandler();
+        commonAssistantHandlers.init();
     }, []);
 };
