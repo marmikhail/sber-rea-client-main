@@ -1,8 +1,12 @@
 {
     "redirects": [
       {
-        "source": "/((?!sber-rea-client|index.html).*)",
+        "source": "/(.*)((?!css|js|html))",
         "destination": "/index.html"
+      },
+      {
+        "source": "/sber-rea-client/:file",
+        "destination": "/:file"
       }
     ]
 }
