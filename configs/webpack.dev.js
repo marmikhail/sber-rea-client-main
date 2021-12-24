@@ -1,4 +1,5 @@
 const {merge} = require('webpack-merge');
+const {DefinePlugin} = require('webpack');
 const path = require('path');
 
 const {baseConfig} = require('./webpack.config');
@@ -35,6 +36,11 @@ const devRules = {
             },
         ],
     },
+    plugins: [
+        new DefinePlugin({
+            ENV: '"dev"',
+        }),
+    ],
 };
 
 module.exports = merge(baseConfig, devRules);

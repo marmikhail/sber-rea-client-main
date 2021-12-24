@@ -6,14 +6,18 @@ import {AssistantAction, AssistantData} from './types';
 
 const getState = () => ({});
 const initAssistant = () => {
-    return createSmartappDebugger({
-        token: SBER_TOKEN,
-        initPhrase: 'Запусти mir_rea',
-        getState,
-        settings: {
-            dubbing: false,
-        },
-    });
+    if (ENV === 'dev') {
+        return createSmartappDebugger({
+            token: SBER_TOKEN,
+            initPhrase: 'Запусти mir_rea',
+            getState,
+            settings: {
+                dubbing: false,
+            },
+        });
+    }
+
+    return createAssistant({getState});
 };
 
 type ActionHandler = (action: AssistantAction) => void;
