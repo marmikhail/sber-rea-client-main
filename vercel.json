@@ -1,7 +1,7 @@
 {
-    "rewrites": [
+    "redirects": [
       {
-        "source": "/(.*)",
+        "source": "/(?!sber-rea-client).*",
         "destination": "/index.html"
       }
     ]
