@@ -1,7 +1,7 @@
 {
     "redirects": [
       {
-        "source": "/(?!sber-rea-client).*",
+        "source": "/((?!sber-rea-client|index.html).*)",
         "destination": "/index.html"
       }
     ]
