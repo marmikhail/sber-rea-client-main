@@ -30,6 +30,8 @@ export class AssistantStore {
         this.assistant = initAssistant();
 
         this.assistant.on('data', event => {
+            console.log(event);
+
             if (event.type !== 'smart_app_data' || !('action' in event)) return;
             const {action} = event as unknown as AssistantData;
             const handlers = this.commandHandlersRepo.get(action.type);
