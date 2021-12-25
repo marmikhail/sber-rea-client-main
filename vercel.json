@@ -4,5 +4,31 @@
         "source": "/sber-rea-client/:file",
         "destination": "/:file"
       }
+    ],
+    "rewrites": [
+      {
+        "source": "/settings(.*)",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/lesson(.*)",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/today(.*)",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/schedule(.*)",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/other-group(.*)",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/login(.*)",
+        "destination": "/index.html"
+      }
     ]
 }
