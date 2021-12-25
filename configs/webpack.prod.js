@@ -38,7 +38,7 @@ const prodRules = {
     plugins: [
         new MiniCssExtractPlugin(),
         new DefinePlugin({
-            ENV: '"dev"',
+            ENV: '"prod"',
         }),
     ],
 };
