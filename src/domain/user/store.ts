@@ -5,7 +5,7 @@ import {userRepository} from '@/services/user';
 import {IUserRepo, IUserStore, UserInfo} from './types';
 import {assertNotNull} from '@/utils/types';
 
-export class UserStore implements IUserStore {
+class UserStoreBase implements IUserStore {
     constructor(private _userInfoRepo: IUserRepo) {
         makeObservable(this);
     }
@@ -54,4 +54,4 @@ export class UserStore implements IUserStore {
     };
 }
 
-export const userStore = new UserStore(userRepository);
+export const UserStore = UserStoreBase.bind(null, userRepository);

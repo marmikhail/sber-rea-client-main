@@ -18,7 +18,6 @@ import {useRouter} from '@/mobx-router/hooks/useRouter';
 
 import {usePageStore} from '.';
 import css from './styles.css';
-import {userStore} from '@/domain/user/store';
 import {Spacer} from '@/uikit';
 
 export type FormItems = {
@@ -67,7 +66,7 @@ const View = observer(() => {
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <TextField
-                        defaultValue={userStore.userInfoSafe.group}
+                        defaultValue={store.currentUserGroup}
                         className={css.textField}
                         label="Группа"
                         {...register('group')}

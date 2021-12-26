@@ -1,4 +1,4 @@
-import {ASSISTANT_KEY, container, HISTORY_KEY} from '@/di';
+import {container, storeKeys} from '@/di';
 import {IAssistant} from '@/di/interfaces';
 import {getWeekScheduleRawPath} from '@/pages/WeekSchedule/builders';
 import {IHistory} from '@/types/router';
@@ -66,7 +66,7 @@ class CommonHandlerBase {
     };
 }
 
-const historyStore = container.get<IHistory>(HISTORY_KEY);
-const assistantStore = container.get<IAssistant>(ASSISTANT_KEY);
+const historyStore = container.get<IHistory>(storeKeys.HISTORY_KEY);
+const assistantStore = container.get<IAssistant>(storeKeys.ASSISTANT_KEY);
 
 export const CommonHandler = CommonHandlerBase.bind(null, assistantStore, historyStore);

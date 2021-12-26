@@ -1,4 +1,5 @@
 export type IWeekScheduleStore = {
     group: string;
-    date: Date;
+    date: Date | null;
+    dateSafe: Date;
 };

@@ -1,13 +1,18 @@
-import {action, makeObservable, observable} from 'mobx';
+import {action, computed, makeObservable, observable} from 'mobx';
 
-import {userStore} from '@/domain/user/store';
 import {IUserStore, UserInfo} from '@/domain/user/types';
 import {updateUser} from '@/services/user';
 import {validateGroup} from '@/services/api/group';
+import {container, storeKeys} from '@/di';
 
 class SettingsStoreBase {
     constructor(private _userStore: IUserStore) {
         makeObservable(this);
+    }
+
+    @computed
+    get currentUserGroup(): string {
+        return this._userStore.userInfoSafe.group;
     }
 
     @observable
@@ -47,5 +52,7 @@ class SettingsStoreBase {
         this.updateInProgress = false;
     };
 }
+
+const userStore = container.get<IUserStore>(storeKeys.USER_KEY);
 
 export const SettingsStore = SettingsStoreBase.bind(null, userStore);

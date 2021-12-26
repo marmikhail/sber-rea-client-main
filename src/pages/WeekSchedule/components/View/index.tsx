@@ -46,13 +46,13 @@ export const ViewBase = observer(() => {
                     <HeaderContent>
                         <TextBox>
                             <TextBoxTitle>Расписание для {localStore.group}</TextBoxTitle>
-                            <TextBoxSubTitle>{formatCommonDate(localStore.date)}</TextBoxSubTitle>
+                            <TextBoxSubTitle>{formatCommonDate(localStore.dateSafe)}</TextBoxSubTitle>
                         </TextBox>
                     </HeaderContent>
                 </HeaderRoot>
             </Container>
 
-            <WeekSchedule date={localStore.date} group={localStore.group} handleDayChange={handleDayChange} />
+            <WeekSchedule date={localStore.dateSafe} group={localStore.group} handleDayChange={handleDayChange} />
         </>
     );
 });

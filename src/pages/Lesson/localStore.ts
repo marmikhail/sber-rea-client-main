@@ -2,13 +2,14 @@ import {autorun, computed, IReactionDisposer, makeObservable} from 'mobx';
 
 import {getLessonInfo} from '@/services/api/schedule';
 import {Fetcher} from '@/utils/store/fetcher';
-import {container, HISTORY_KEY, USER_KEY} from '@/di';
+import {container, storeKeys} from '@/di';
 import {assertNotNull} from '@/utils/types';
 import {Disposable} from '@/utils/store/disposable';
 
 import type {LessonFullInfo} from '@/domain/schedule/types';
 import type {IHistory} from '@/mobx-router/core/interfaces/IHistory';
 import type {IUserStore} from '@/domain/user/types';
+import {parseUrlDate} from '@/utils/format';
 
 class LessonPageStoreBase extends Disposable {
     lessonInfo = new Fetcher(getLessonInfo);
@@ -43,7 +44,7 @@ class LessonPageStoreBase extends Disposable {
 
     @computed
     get date() {
-        return new Date(this._historyStore.query.date);
+        return parseUrlDate(this._historyStore.query.date);
     }
 
     @computed
@@ -56,7 +57,7 @@ class LessonPageStoreBase extends Disposable {
     };
 }
 
-const historyStore = container.get<IHistory>(HISTORY_KEY);
-const userStore = container.get<IUserStore>(USER_KEY);
+const historyStore = container.get<IHistory>(storeKeys.HISTORY_KEY);
+const userStore = container.get<IUserStore>(storeKeys.USER_KEY);
 
 export const LessonPageStore = LessonPageStoreBase.bind(null, historyStore, userStore);

@@ -1,6 +1,8 @@
-import {container, HISTORY_KEY, USER_KEY} from '@/di';
+import {container, storeKeys} from '@/di';
 import {IUserStore} from '@/domain/user/types';
 import {IHistory} from '@/types/router';
+import {parseUrlDate, validateUrlDate} from '@/utils/format';
+import {assertNotNull} from '@/utils/types';
 import {computed, makeObservable} from 'mobx';
 
 class WeekSchedulePageStoreBase {
@@ -14,14 +16,22 @@ class WeekSchedulePageStoreBase {
     }
 
     @computed
-    get date(): Date {
+    get date(): Date | null {
         const {day: dayFromHistory} = this.history.query;
 
-        return dayFromHistory ? new Date(dayFromHistory) : new Date();
+        if (!dayFromHistory || !validateUrlDate(dayFromHistory)) return new Date();
+
+        return dayFromHistory ? parseUrlDate(dayFromHistory) : new Date();
+    }
+
+    @computed
+    get dateSafe(): Date {
+        assertNotNull(this.date);
+        return this.date;
     }
 }
 
-const historyStore = container.get<IHistory>(HISTORY_KEY);
-const userStore = container.get<IUserStore>(USER_KEY);
+const historyStore = container.get<IHistory>(storeKeys.HISTORY_KEY);
+const userStore = container.get<IUserStore>(storeKeys.USER_KEY);
 
 export const WeekSchedulePageStore = WeekSchedulePageStoreBase.bind(null, historyStore, userStore);

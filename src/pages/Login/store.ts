@@ -1,9 +1,9 @@
 import {action, makeObservable, observable} from 'mobx';
 
-import {userStore} from '@/domain/user/store';
 import {register} from '@/services/user';
 import type {IUserStore, UserInfo} from '@/domain/user/types';
 import {validateGroup} from '@/services/api/group';
+import {container, storeKeys} from '@/di';
 
 class LoginStoreBase {
     constructor(private _userStore: IUserStore) {
@@ -47,5 +47,7 @@ class LoginStoreBase {
         this.registerInProgress = false;
     };
 }
+
+const userStore = container.get<IUserStore>(storeKeys.USER_KEY);
 
 export const LoginStore = LoginStoreBase.bind(null, userStore);

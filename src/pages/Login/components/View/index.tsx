@@ -3,13 +3,14 @@ import {TextField, Container, Headline1, Button} from '@sberdevices/plasma-ui';
 import {observer} from 'mobx-react-lite';
 import {useForm} from 'react-hook-form';
 
-import {userStore} from '@/domain/user/store';
 import {Redirect} from '@/mobx-router';
 import {useShowToast} from '@/hooks/useToast';
 
 import {usePageStore} from '../..';
 import css from './styles.css';
 import {useRouter} from '@/mobx-router/hooks/useRouter';
+import {container, storeKeys} from '@/di';
+import {IUserStore} from '@/domain/user/types';
 
 export type FormItems = {
     group: string;
@@ -53,6 +54,8 @@ const ViewBase = observer(() => {
         </Container>
     );
 });
+
+const userStore = container.get<IUserStore>(storeKeys.USER_KEY);
 
 const View = observer(() => {
     const showToast = useShowToast();
