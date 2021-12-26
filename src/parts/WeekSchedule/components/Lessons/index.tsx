@@ -39,6 +39,7 @@ export const Lessons = observer(() => {
 
     const dayInfo = store.lessonsInfo.data?.[day];
     const lessons = dayInfo?.lessons;
+
     if (!lessons || !lessons.length || dayInfo.isFree) return <FreeDayView />;
 
     return <LessonsBase group={store.group} date={store.date} lessons={lessons} />;
