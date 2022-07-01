@@ -1,7 +1,7 @@
 {
     "redirects": [
       {
-        "source": "/sber-rea-client/:file",
+        "source": "/sber-rea-client-main/:file",
         "destination": "/:file"
       }
     ],
